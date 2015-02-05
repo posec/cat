@@ -11,7 +11,12 @@ func main() {
 	if len(args) == 0 {
 		io.Copy(os.Stdout, os.Stdin)
 	} else {
-		for _, f := range args {
+		var loop func([]string) struct{}
+		loop = func(args []string) struct{} {
+			if len(args) == 0 {
+				return struct{}{}
+			}
+			f := args[0]
 			in, err := os.Open(f)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "%s\n", err)
@@ -19,6 +24,8 @@ func main() {
 			}
 			defer in.Close()
 			io.Copy(os.Stdout, in)
+			return loop(args[1:])
 		}
+		loop(args)
 	}
 }
