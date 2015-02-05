@@ -14,7 +14,7 @@ func main() {
 		for _, f := range args {
 			in, err := os.Open(f)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "%s: %s\n", in, err)
+				fmt.Fprintf(os.Stderr, "%s\n", err)
 				os.Exit(2)
 			}
 			defer in.Close()
