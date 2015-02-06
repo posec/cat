@@ -1,13 +1,17 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"os"
 )
 
+var uIgnored = flag.Bool("u", false, "unbuffered (ignored)")
+
 func main() {
-	args := os.Args[1:]
+	flag.Parse()
+	args := flag.Args()
 	if len(args) == 0 {
 		io.Copy(os.Stdout, os.Stdin)
 	} else {
